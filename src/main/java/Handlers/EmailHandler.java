@@ -27,7 +27,7 @@ public class EmailHandler implements PromptHandler {
         }
     }
 
-    public boolean isEmailAddressValid(String email) {
+    public static boolean isEmailAddressValid(String email) {
         Pattern pattern = Pattern.compile(EMAIL_VALIDATION_REGEX);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

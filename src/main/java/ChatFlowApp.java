@@ -3,6 +3,7 @@ import Handlers.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import Client.Client;
 
 public class ChatFlowApp {
 
@@ -17,6 +18,6 @@ public class ChatFlowApp {
         prompts.add(new ReasonForLoanHandler());
 
         ChatFlowController chatFlowController = new ChatFlowController(System.out::println, in::next, prompts);
-        chatFlowController.handlePrompts();
+        Client client = chatFlowController.handlePrompts();
     }
 }

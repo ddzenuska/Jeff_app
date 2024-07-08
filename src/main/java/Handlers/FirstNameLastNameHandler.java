@@ -5,19 +5,48 @@ import java.util.function.Supplier;
 import Client.Client;
 
 public class FirstNameLastNameHandler implements PromptHandler {
-    private static final String FIRSTNAME_PROMPT = "🤖: What is your first name?";
-    private static final String LASTNAME_PROMPT = "🤖: And what is your last name, ";
-    private static final String MEETING_PROMPT = "🤖: Nice to meet you, ";
+    private final String FIRSTNAME_PROMPT = "🤖: What is your first name?";
+    private final String LASTNAME_PROMPT = "🤖: And what is your last name, ";
+    private final String MEETING_PROMPT = "🤖: Nice to meet you, ";
+    private final String INVALID_FIRSTNAME_PROMPT = "Please write your first name correctly.";
+    private final String INVALID_LASTNAME_PROMPT = "Please write your last name correctly.";
 
     @Override
     public void handler(Consumer<String> output, Supplier<String> input, Client client) {
-        output.accept(FIRSTNAME_PROMPT);
-        output.accept("👧: ");
-        client.setFirstName(input.get());
-        output.accept(LASTNAME_PROMPT + client.getFirstName() + "?");
-        output.accept("👧: ");
-        client.setLastName(input.get());
+        while (true) {
+            output.accept(FIRSTNAME_PROMPT);
+            output.accept("👧: ");
+            String firstName = input.get();
 
-        output.accept(MEETING_PROMPT + client.getFirstName() + " " + client.getLastName() + "!");
+            if (isFirstNameValid(firstName)) {
+                client.setFirstName(capitalizeFirstLetter(firstName));
+                output.accept(LASTNAME_PROMPT + client.getFirstName() + "?");
+                output.accept("👧: ");
+                String lastName = input.get();
+                if (isLastNameValid(lastName)) {
+                    client.setLastName(capitalizeFirstLetter(lastName));
+                    output.accept(MEETING_PROMPT + client.getFirstName() + " " + client.getLastName() + "!");
+                    break;
+                } else {
+                    output.accept(INVALID_LASTNAME_PROMPT );
+                }
+            } else {
+                output.accept(INVALID_FIRSTNAME_PROMPT);
+            }
+        }
+    }
+
+    private boolean isFirstNameValid( String firstName ) {
+        return firstName.matches( "[A-Za-z]+" );
+    }
+    private boolean isLastNameValid( String lastName ) {
+        return lastName.matches( "[A-Za-z]+([ '-][A-Za-z]+)*" );
+    }
+
+    private String capitalizeFirstLetter(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 }
