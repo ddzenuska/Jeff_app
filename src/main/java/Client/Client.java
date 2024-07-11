@@ -3,12 +3,12 @@ package Client;
 import java.time.LocalDate;
 
 public class Client {
-    String firstName;
-    String lastName;
-    String email;
-    LocalDate age;
-    Boolean isOverEighteen;
-    String loanReason;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private  LocalDate age;
+    private Boolean isOverEighteen;
+    private String loanReason;
 
     public Client() {
     }

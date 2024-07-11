@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import Client.Client;
 
 public class EmailHandler implements PromptHandler {
-    public static final String EMAIL_ADDRESS_PROMPT = "🤖: What's your email address?";
-    public static final String INVALID_EMAIL_PROMPT = "🤖: Please input a correct email address!";
-    public static final String EMAIL_VALIDATION_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    private static final String EMAIL_ADDRESS_PROMPT = "🤖: What's your email address?";
+    private static final String INVALID_EMAIL_PROMPT = "🤖: Please input a correct email address!";
+    private static final String EMAIL_VALIDATION_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
     @Override
     public void handler(Consumer<String> output, Supplier<String> input, Client client) {
