@@ -10,6 +10,8 @@ public class FirstNameLastNameHandler implements PromptHandler {
     private final String MEETING_PROMPT = "🤖: Nice to meet you, ";
     private final String INVALID_FIRSTNAME_PROMPT = "Please write your first name correctly.";
     private final String INVALID_LASTNAME_PROMPT = "Please write your last name correctly.";
+    private final String FIRSTNAME_REGEX = "[A-Za-z]+";
+    private final String LASTNAME_REGEX = "[A-Za-z]+([ '-][A-Za-z]+)*";
 
     @Override
     public void handler(Consumer<String> output, Supplier<String> input, Client client) {
@@ -37,10 +39,10 @@ public class FirstNameLastNameHandler implements PromptHandler {
     }
 
     private boolean isFirstNameValid( String firstName ) {
-        return firstName.matches( "[A-Za-z]+" );
+        return firstName.matches( FIRSTNAME_REGEX);
     }
     private boolean isLastNameValid( String lastName ) {
-        return lastName.matches( "[A-Za-z]+([ '-][A-Za-z]+)*" );
+        return lastName.matches( LASTNAME_REGEX );
     }
 
     private String capitalizeFirstLetter(String input) {
